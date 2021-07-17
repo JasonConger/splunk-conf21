@@ -1,5 +1,10 @@
 name: GitHub Actions Demo
-on: [push]
+on:
+  push:
+    branches:
+      - main
+  repository_dispatch:
+  
 jobs:
 
   package:
@@ -7,4 +12,4 @@ jobs:
     steps:
       - uses: splunk/addonfactory-packaging-toolkit-action@v1.0.3
         with:
-          source: ./output/TA-Dropbox
+          source: ./output/TA-Dropbox/
