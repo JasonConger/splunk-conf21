@@ -7,7 +7,7 @@ on:
   
 jobs:
 
-  build:
+  checkout:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -15,7 +15,11 @@ jobs:
         with:
           submodules: recursive
           persist-credentials: false
-      
+  
+  package:
+    needs: checkout
+    runs-on: ubuntu-latest
+    steps:
       - name: package 
         uses: splunk/addonfactory-packaging-toolkit-action@v1.0.3
         with:
