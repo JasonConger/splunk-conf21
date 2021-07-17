@@ -1,0 +1,10 @@
+name: GitHub Actions Demo
+on: [push]
+jobs:
+
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: splunk/addonfactory-packaging-toolkit-action@v1.0.3
+        with:
+          source: ./output
