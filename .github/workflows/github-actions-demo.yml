@@ -8,4 +8,3 @@ jobs:
       - uses: splunk/addonfactory-packaging-toolkit-action@v1.0.3
         with:
           source: ./output/TA-Dropbox
-          app-source: ./output/TA-Dropbox
