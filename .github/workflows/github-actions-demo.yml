@@ -7,10 +7,16 @@ on:
   
 jobs:
 
-  package:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: splunk/addonfactory-packaging-toolkit-action@v1.0.3
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: recursive
+          persist-credentials: false
+      
+      - name: package 
+        uses: splunk/addonfactory-packaging-toolkit-action@v1.0.3
         with:
           source: ./output/TA-Dropbox/
