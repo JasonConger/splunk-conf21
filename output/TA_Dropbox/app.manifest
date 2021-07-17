@@ -1,0 +1,52 @@
+{
+    "info": {
+        "author": [
+            {
+                "company": null,
+                "email": null,
+                "name": "Splunk Works"
+            }
+        ],
+        "classification": {
+            "categories": [
+                "Security, Fraud & Compliance",
+                "Business Analytics"
+            ],
+            "developmentStatus": null,
+            "intendedAudience": "IT Professionals"
+        },
+        "commonInformationModels": null,
+        "description": "Dropbox Business Add-on for Splunk",
+        "id": {
+            "group": null,
+            "name": "TA_Dropbox",
+            "version": "0.0.0R60e4e39"
+        },
+        "license": {
+            "name": "Splunk General Terms",
+            "text": "LICENSES/LicenseRef-Splunk-1-2020.txt",
+            "uri": "https://www.splunk.com/en_us/legal/splunk-general-terms.html"
+        },
+        "privacyPolicy": {
+            "name": null,
+            "text": null,
+            "uri": null
+        },
+        "releaseDate": null,
+        "releaseNotes": {
+            "name": "README",
+            "text": "README.txt",
+            "uri": ""
+        },
+        "title": "Dropbox Business Add-on for Splunk"
+    },
+    "schemaVersion": "2.0.0",
+    "supportedDeployments": [
+        "_standalone",
+        "_distributed"
+    ],
+    "targetWorkloads": [
+        "_search_heads",
+        "_indexers"
+    ]
+}
