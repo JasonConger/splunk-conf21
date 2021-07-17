@@ -7,4 +7,4 @@ jobs:
     steps:
       - uses: splunk/addonfactory-packaging-toolkit-action@v1.0.3
         with:
-          source: ./output
+          source: ./output/TA-Dropbox
