@@ -6,8 +6,17 @@ on:
   repository_dispatch:
   
 jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Package Splunk Application
+        uses: splunk/addonfactory-packaging-toolkit-action@v1.1.0
+        with:
+          source: ./output/TA-Dropbox
   
   appinspect:
+    needs: package
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
