@@ -6,21 +6,11 @@ on:
   repository_dispatch:
   
 jobs:
-
-  checkout:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          submodules: recursive
-          persist-credentials: false
   
-  package:
-    needs: checkout
+  inspect:
     runs-on: ubuntu-latest
     steps:
       - name: package 
-        uses: splunk/addonfactory-packaging-toolkit-action@v1.0.3
+        uses: splunk/appinspect-cli-action@v1.0.0
         with:
-          source: ./output/TA-Dropbox/
+          app-path: ./output/microsoft-azure-add-on-for-splunk_311.tgz
