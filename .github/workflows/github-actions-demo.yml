@@ -14,4 +14,4 @@ jobs:
       - name: package 
         uses: splunk/appinspect-cli-action@v1.1.0
         with:
-          app_path: ./output/TA-Dropbox
+          app_path: ./output/microsoft-azure-add-on-for-splunk_311.tgz
