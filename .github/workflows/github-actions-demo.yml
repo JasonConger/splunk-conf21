@@ -13,7 +13,7 @@ jobs:
       - name: Package Splunk Application
         uses: splunk/addonfactory-packaging-toolkit-action@v1.1.0
         with:
-          source: ./output/TA-Dropbox
+          source: ./output/TA_Dropbox
   
   appinspect:
     needs: package
