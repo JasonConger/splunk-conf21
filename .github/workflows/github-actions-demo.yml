@@ -6,21 +6,37 @@ on:
   repository_dispatch:
   
 jobs:
-  package:
+
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Package Splunk Application
-        uses: splunk/addonfactory-packaging-toolkit-action@v1.1.0
+      - name: Semantic Release Get Next
+        id: semantic
+        if: github.event_name != 'pull_request'
+        uses: cycjimmy/semantic-release-action@v2.5.4
         with:
-          source: ./output/TA_Dropbox
+          semantic_version: 17
+          extra_plugins: |
+            @semantic-release/exec
+            @semantic-release/git
+          dry_run: true
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GH_TOKEN_ADMIN }}
+#  package:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: Package Splunk Application
+#        uses: splunk/addonfactory-packaging-toolkit-action@v1.1.0
+#        with:
+#          source: ./output/TA_Dropbox
   
-  appinspect:
-    needs: package
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: package 
-        uses: splunk/appinspect-cli-action@v1.1.0
-        with:
-          app_path: ./output/microsoft-azure-add-on-for-splunk_311.tgz
+#  appinspect:
+#    needs: package
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: package 
+#        uses: splunk/appinspect-cli-action@v1.1.0
+#        with:
+#          app_path: ./output/microsoft-azure-add-on-for-splunk_311.tgz
