@@ -20,7 +20,7 @@
         "id": {
             "group": null,
             "name": "TA_Dropbox",
-            "version": "0.0.0R60e4e39"
+            "version": "0.0.0Rb40960b"
         },
         "license": {
             "name": "Splunk General Terms",
