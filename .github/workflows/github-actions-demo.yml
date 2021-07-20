@@ -8,7 +8,8 @@ on:
 jobs:
   
   # Build the Splunk package and upload as an artifact
-  build: 
+  build:
+    name: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
