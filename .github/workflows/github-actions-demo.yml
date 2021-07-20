@@ -31,7 +31,6 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Dowload SLIM package artifact
       - uses: actions/download-artifact@v2
         with:
           name: splunkbase-package
