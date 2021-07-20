@@ -72,12 +72,12 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: app_tgz
-          path: build/splunk-conf.tgz
+          path: build/TA_Dropbox.tgz
 
       - uses: actions/upload-artifact@v2
         with:
           name: ucc_out
-          path: output/splunk-conf
+          path: output/TA_Dropbox
 
   appinspect:
     runs-on: ubuntu-latest
