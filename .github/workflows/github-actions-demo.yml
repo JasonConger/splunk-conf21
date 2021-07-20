@@ -6,9 +6,26 @@ on:
   repository_dispatch:
   
 jobs:
+
+  appinspect:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run AppInspect
+        uses: splunk/appinspect-cli-action@v1.1.0
+        with:
+          app_path: ./output/TA_Dropbox
+          
+      - name: Upload AppInspect Results
+        uses: actions/upload-artifact@v2
+        with:
+          name: appinspect-results
+          path: appinspect_result.json
   
   # Build the Splunk package and upload as an artifact
   build:
+    needs: appinspect
     name: build
     runs-on: ubuntu-latest
     steps:
@@ -26,23 +43,4 @@ jobs:
           path: ${{ steps.slim.outputs.OUTPUT }}
   
   
-  appinspect:
-    needs: build
-    runs-on: ubuntu-latest
-    
-    steps:
-      - uses: actions/download-artifact@v2
-        with:
-          name: splunkbase-package
-          path: build/package/
-          
-      - name: Run AppInspect
-        uses: splunk/appinspect-cli-action@v1.1.0
-        with:
-          app_path: build/package
-          
-      - name: Upload AppInspect Results
-        uses: actions/upload-artifact@v2
-        with:
-          name: appinspect-results
-          path: appinspect_result.json
+  
