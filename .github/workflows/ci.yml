@@ -68,7 +68,7 @@ jobs:
       - run: ucc-gen --ta-version 0.0.1
       - run: |
           mkdir -p build
-          tar cfvz build/splunk-conf.tgz -C output splunk-conf21/
+          tar cfvz build/TA_Dropbox.tgz -C output TA_Dropbox/
       - uses: actions/upload-artifact@v2
         with:
           name: app_tgz
