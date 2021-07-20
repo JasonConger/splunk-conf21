@@ -16,6 +16,11 @@ jobs:
         uses: splunk/addonfactory-packaging-toolkit-action@v1.1.0
         with:
           source: ./output/TA_Dropbox
+      - name: Splunkbase Package
+        uses: actions/upload-artifact@v2
+        with:
+          name: splunkbase-package
+          path: ${{ steps.slim.outputs.OUTPUT }}
   
 #  appinspect:
 #    needs: package
