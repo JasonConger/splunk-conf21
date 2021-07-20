@@ -37,8 +37,6 @@ jobs:
           path: build/package/
           
       - name: Run App Inspect
-        uses: splunk/appinspect-cli-action@V1.1.0
+        uses: splunk/appinspect-cli-action@v1.1.0
         with:
           app_path: build/package
-          
-      
