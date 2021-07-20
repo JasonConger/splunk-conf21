@@ -1,4 +1,4 @@
-name: GitHub Actions Demo
+name: Build and Inspect Splunk Package
 on:
   push:
     branches:
@@ -6,28 +6,39 @@ on:
   repository_dispatch:
   
 jobs:
-      
-  package: 
+  
+  # Build the Splunk package and upload as an artifact
+  build: 
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: SLIM Package
+      - name: Package app with Splunk Packaging Toolkit (SLIM)
         id: slim
         uses: splunk/addonfactory-packaging-toolkit-action@v1.1.0
         with:
           source: ./output/TA_Dropbox
-      - name: Splunkbase Package
+      
+      - name: Upload SLIM package as an artifact
         uses: actions/upload-artifact@v2
         with:
           name: splunkbase-package
           path: ${{ steps.slim.outputs.OUTPUT }}
   
-#  appinspect:
-#    needs: package
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v2
-#      - name: package 
-#        uses: splunk/appinspect-cli-action@v1.1.0
-#        with:
-#          app_path: ./output/microsoft-azure-add-on-for-splunk_311.tgz
+  
+  appinspect:
+    needs: build
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Dowload SLIM package artifact
+      - uses: actions/download-artifact@v2
+        with:
+          name: splunkbase-package
+          path: build/package/
+          
+      - name: Run App Inspect
+        uses: splunk/appinspect-cli-action@V1.1.0
+        with:
+          app_path: build/package
+          
+      
