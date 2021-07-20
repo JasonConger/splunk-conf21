@@ -6,24 +6,16 @@ on:
   repository_dispatch:
   
 jobs:
-
-  build:
+      
+  package: 
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Build Package
-        uses: splunk/addonfactory-ucc-generator-action@v1
+      - name: SLIM Package
+        id: slim
+        uses: splunk/addonfactory-packaging-toolkit-action@v1.1.0
         with:
-          version: 1.0
-      
-#  package: 
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v2
-#      - name: Package Splunk Application
-#        uses: splunk/addonfactory-packaging-toolkit-action@v1.1.0
-#        with:
-#          source: ./output/TA_Dropbox
+          source: ./output/TA_Dropbox
   
 #  appinspect:
 #    needs: package
