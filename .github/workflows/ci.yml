@@ -1,4 +1,4 @@
-name: Build and Inspect Splunk Package
+name: CI
 on:
   push:
     branches:
@@ -48,6 +48,36 @@ jobs:
       - name: Run unittests
         run: |
           python3 -m unittest discover tests/
+          
+  ucc-gen:
+    name: Generate App Bundle
+    needs: test-unit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - run: mkdir -p dist
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - run: ucc-gen --ta-version 0.0.1
+      - run: |
+          mkdir -p build
+          tar cfvz build/splunk-conf.tgz -C output splunk-conf21/
+      - uses: actions/upload-artifact@v2
+        with:
+          name: app_tgz
+          path: build/splunk-conf.tgz
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: ucc_out
+          path: output/splunk-conf
 
   appinspect:
     runs-on: ubuntu-latest
