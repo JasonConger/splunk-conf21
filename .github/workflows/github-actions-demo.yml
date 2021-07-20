@@ -8,22 +8,14 @@ on:
 jobs:
 
   build:
-    name: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Semantic Release Get Next
-        id: semantic
-        if: github.event_name != 'pull_request'
-        uses: cycjimmy/semantic-release-action@v2.5.4
+      - name: Build Package
+        uses: splunk/addonfactory-ucc-generator-action@v1
         with:
-          semantic_version: 17
-          extra_plugins: |
-            @semantic-release/exec
-            @semantic-release/git
-          dry_run: true
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GH_TOKEN_ADMIN }}
+          version: 1.0
+      
 #  package:
 #    runs-on: ubuntu-latest
 #    steps:
