@@ -8,8 +8,10 @@ on:
 jobs:
 
   build:
+    name: build
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: Semantic Release Get Next
         id: semantic
         if: github.event_name != 'pull_request'
