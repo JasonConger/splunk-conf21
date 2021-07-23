@@ -36,8 +36,34 @@ jobs:
         uses: returntocorp/semgrep-action@v1
         with:
           config: p/r2c
-    
+  
+  build:
+    name: Build
+    needs:
+      - lint
+      - semgrep
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          #semantic-release won't trigger a tagged build if this is not set false
+          persist-credentials: false
       
+      # Our add-on contains Python, so we need to install Python in the container
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+      
+      # Get the directory where pip caches libraries
+      - name: Get pip cache dir
+        id: pip-cache
+        run: |
+          echo "::set-output name=dir::$(pip cache dir)"
+          
+          
+          
           
   #test-unit:
   #  name: Run Unit Tests
