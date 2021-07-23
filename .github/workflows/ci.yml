@@ -57,26 +57,10 @@ jobs:
         with:
           python-version: 3.7
       
-      # Get the directory where pip caches libraries
-      - name: Get pip cache dir
-        id: pip-cache-dir
+      - name: Install Python dependencies
         run: |
-          echo "::set-output name=dir::$(pip cache dir)"
-      
-      # The next 3 steps install/cache any dependencies founr in requirements_dev.txt
-      - name: Install required dev libraries
-        id: dev-requirements
-        run: |
-          if [ -f requirements_dev.txt ]; then echo "::set-output name=ENABLED::true"; fi
-          
-      - name: dev pip cache
-        if: ${{ steps.dev-requirements.outputs.ENABLED == 'true' }}
-        uses: actions/cache@v2
-        with:
-          path: ${{ steps.pip-cache-dir.outputs.dir }}
-          key: ${{ runner.os }}-pip-${{ hashFiles('requirements_dev.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
+          python -m pip install --upgrade pip
+          if [ -f requirements_dev.txt ]; then pip install -r requirements_dev.txt; fi
           
           
           
