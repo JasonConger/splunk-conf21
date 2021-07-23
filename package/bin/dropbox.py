@@ -95,7 +95,7 @@ def send_http_request(access_token, cursor, start_time, category):
     headers["Content-Type"] = "application/json"
 
     try:
-        r = requests.post(dropbox_get_events_url, headers=headers, data=json.dumps(payload))
+        r = requests.post(dropbox_get_events_url, headers=headers, data=json.dumps(payload), timeout=10)
         r.raise_for_status()
     except Exception as e:
         raise e
