@@ -40,9 +40,9 @@ jobs:
   build:
     # Build, package, and upload artifacts
     name: Build
-    needs:
-      - lint
-      - semgrep
+    #needs:
+    #  - lint
+    #  - semgrep
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -50,21 +50,6 @@ jobs:
         with:
           # semantic-release won't trigger a tagged build if this is not set false
           persist-credentials: false
-          
-      # Setup Node.js so we can run semantic-release
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12
-          
-      - name: Install dependencies
-        run: npm ci
-        
-      - name: Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          #NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npx semantic-release
       
       # Our add-on contains Python code, so we need to install Python in the container
       - name: Setup Python
@@ -76,6 +61,16 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           if [ -f requirements_dev.txt ]; then pip install -r requirements_dev.txt; fi
+          
+      - name: Get Semantic Release Version
+        id: semantic-release
+        if: github.event_name != 'pull_request'
+        uses: cycjimmy/semantic-release-action@v2
+        with:
+          semantic_version: 17
+          dry_run: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
           
           
