@@ -62,13 +62,19 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements_dev.txt ]; then pip install -r requirements_dev.txt; fi
           
+      
+          
       - name: Get Semantic Release Version
         id: semantic-release
         if: github.event_name != 'pull_request'
         uses: cycjimmy/semantic-release-action@v2
         with:
+          semantic_version: 17
           branch: main
           dry_run: true
+          extra_plugins: |
+            @semantic-release/exec
+            @semantic-release/git
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
