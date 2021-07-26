@@ -126,6 +126,32 @@ jobs:
           name: package-deployment
           path: build/package/deployment**
         if: always()
+        
+  appinspect-cli:
+    name: AppInspect CLI
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        tags:
+          - "cloud"
+          - "appapproval"
+          - "deprecated_feature"
+          - "developer_guidance"
+          - "future"
+          - "self-service"
+          - "splunk_appinspect"
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: package-splunkbase
+          path: build/package/
+
+      - name: Run AppInspect CLI
+        uses: splunk/appinspect-cli-action@v1
+        with:
+          app_path: build/package/
+          included_tags: ${{ matrix.tags }}
       
           
           
