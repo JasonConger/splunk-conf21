@@ -87,6 +87,13 @@ jobs:
           SemVer: ${{ steps.semantic-releae.outputs.new_release_version }}
           PrNumber: ${{ github.event.number }}
       
+      # Build the Splunk app package
+      - name: Build Splunk Package
+        id: uccgen
+        uses: splunk/addonfactory-ucc-generator-action@v1
+        with:
+          version: ${{ steps.splunk-app-build-version.outputs.VERSION }}
+      
           
           
           
