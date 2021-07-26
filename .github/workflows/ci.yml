@@ -70,7 +70,6 @@ jobs:
         uses: cycjimmy/semantic-release-action@v2
         with:
           semantic_version: 17
-          branch: main
           dry_run: true
           extra_plugins: |
             @semantic-release/exec
