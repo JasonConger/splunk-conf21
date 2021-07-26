@@ -84,15 +84,41 @@ jobs:
         id: splunk-app-build-version
         uses: splunk/addonfactory-get-splunk-package-version-action@v1
         with:
-          SemVer: ${{ steps.semantic-releae.outputs.new_release_version }}
+          SemVer: ${{ steps.semantic-release.outputs.new_release_version }}
           PrNumber: ${{ github.event.number }}
       
-      # Build the Splunk app package
       - name: Build Splunk Package
         id: uccgen
         uses: splunk/addonfactory-ucc-generator-action@v1
         with:
           version: ${{ steps.splunk-app-build-version.outputs.VERSION }}
+      
+      - name: Package Splunk App with SLIM
+        id: slim
+        uses: splunk/addonfactory-packaging-toolkit-action@v1
+        with:
+          source: ${{ steps.uccgen.outputs.OUTPUT }}
+      
+      - name: Upload SLIM raw package as an artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: package-raw
+          path: ${{ steps.uccgen.outputs.OUTPUT }}**
+        if: always()
+        
+      - name: Upload SLIM splunkbase package as an artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: package-splunkbase
+          path: ${{ steps.slim.outputs.OUTPUT }}
+        if: always()
+      
+      - name: Upload SLIM parts as an 
+        uses: actions/upload-artifact@v2
+        with:
+          name: package-deployment
+          path: build/package/deployment**
+        if: always()
       
           
           
