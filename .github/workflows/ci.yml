@@ -91,14 +91,14 @@ jobs:
         id: splunk-app-build-version
         uses: splunk/addonfactory-get-splunk-package-version-action@v1
         with:
-          SemVer: ${{ steps.semantic-release.outputs.new_release_version }}
+          SemVer: 'v${{ steps.semantic-release.outputs.new_release_version }}'
           PrNumber: ${{ github.event.number }}
       
       - name: Build Splunk Package
         id: uccgen
         uses: splunk/addonfactory-ucc-generator-action@v1
         with:
-          version: 'v${{ steps.splunk-app-build-version.outputs.VERSION }}'
+          version: ${{ steps.splunk-app-build-version.outputs.VERSION }}
       
       - name: Package Splunk App with SLIM
         id: slim
