@@ -69,7 +69,7 @@ jobs:
       - name: Get Semantic Release Version
         id: semantic-release
         if: github.event_name != 'pull_request'
-        uses: cycjimmy/semantic-release-action@v2
+        uses: cycjimmy/semantic-release-action@v2.5.4
         with:
           semantic_version: 17
           dry_run: true
