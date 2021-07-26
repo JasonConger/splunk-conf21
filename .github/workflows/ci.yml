@@ -98,7 +98,7 @@ jobs:
         id: uccgen
         uses: splunk/addonfactory-ucc-generator-action@v1
         with:
-          version: ${{ steps.splunk-app-build-version.outputs.VERSION }}
+          version: 'v${{ steps.splunk-app-build-version.outputs.VERSION }}'
       
       - name: Package Splunk App with SLIM
         id: slim
