@@ -13,6 +13,36 @@ on:
   
 jobs:
 
+  # Run linters to help validate source code
+  lint:
+    name: Lint Code Base
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Lint Code Base
+        uses: github/super-linter@v4
+        env:
+          VALIDATE_ALL_CODEBASE: false
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+  # Semgrep detects and prevents bugs and anti-patterns in your codebase
+  semgrep:
+    name: Semgrep Scan
+    runs-on: ubuntu-latest
+    # Skip any PR created by dependabot to avoid permission issues
+    if: (github.actor != 'dependabot[bot]')
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Semgrep scan
+        uses: returntocorp/semgrep-action@v1
+        with:
+          config: p/r2c
+  
   build:
     # Build, package, inspect, and upload artifacts
     name: Build
@@ -39,24 +69,35 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements_dev.txt ]; then pip install -r requirements_dev.txt; fi
 
-      # Get globalConfig contents as a variable
-      - name: Get globalConfig.json Settings
-        id: get-globalConfig
-        run: |
-          content=`cat globalConfig.json`
-          # the following lines are only required for multi line json
-          content="${content//'%'/'%25'}"
-          content="${content//$'\n'/'%0A'}"
-          content="${content//$'\r'/'%0D'}"
-          # end of optional handling for multi line json
-          echo "::set-output name=globalConfigJson::$content"
+      # The cycjimmy/semantic-release-action runs semantic-release (https://github.com/semantic-release/semantic-release)
+      # semantic-release uses the commit messages to determine the type of changes in the codebase and determines a release version
+      - name: Get Semantic Release Version
+        id: semantic-release
+        if: github.event_name != 'pull_request'
+        uses: cycjimmy/semantic-release-action@v2.5.4
+        with:
+          semantic_version: 17
+          dry_run: true
+          extra_plugins: |
+            @semantic-release/exec
+            @semantic-release/git
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      # Get the Splunk package version based on the semantic-release result
+      - name: Determine the Splunk app version to build
+        id: splunk-app-build-version
+        uses: splunk/addonfactory-get-splunk-package-version-action@v1
+        with:
+          SemVer: 'v${{ steps.semantic-release.outputs.new_release_version }}'
+          PrNumber: ${{ github.event.number }}
       
       # Build the package with UCC generator
       - name: Build Splunk Package
         id: uccgen
         uses: splunk/addonfactory-ucc-generator-action@v1
         with:
-          version: ${{ fromJson(steps.get-globalConfig.outputs.globalConfigJson).meta.version }}
+          version: ${{ steps.splunk-app-build-version.outputs.VERSION }}
       
       - name: Package Splunk App with SLIM
         id: slim
