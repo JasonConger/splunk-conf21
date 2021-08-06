@@ -1,44 +1,16 @@
 {
   "schemaVersion": "2.0.0",
   "info": {
-    "title": "Dropbox Business Add-on for Splunk",
+    "title": "Splunk .conf21 Example App",
     "id": {
-      "group": null,
-      "name": "TA_Dropbox",
-      "version": "1.0.0"
+      "name": "TA-conf21"
     },
     "author": [
       {
-        "name": "Splunk Works",
-        "email": null,
-        "company": null
+        "name": "Jason Conger"
       }
     ],
-    "releaseDate": null,
-    "description": "Dropbox Business Add-on for Splunk",
-    "classification": {
-      "intendedAudience": "IT Professionals",
-      "categories": [
-        "Security, Fraud & Compliance", "Business Analytics"
-      ],
-      "developmentStatus": null
-    },
-    "commonInformationModels": null,
-    "license": {
-      "name": "Splunk General Terms",
-      "text": "LICENSES/LicenseRef-Splunk-1-2020.txt",
-      "uri": "https://www.splunk.com/en_us/legal/splunk-general-terms.html"
-    },
-    "privacyPolicy": {
-      "name": null,
-      "text": null,
-      "uri": null
-    },
-    "releaseNotes": {
-      "name": "README",
-      "text": "README.txt",
-      "uri": ""
-    }
+    "description": "Splunk .conf21 Example App"
   },
   "supportedDeployments": [
     "_standalone",
