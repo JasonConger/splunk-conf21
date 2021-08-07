@@ -1,0 +1,15 @@
+# Ignore git items
+.gitignore
+.git/
+:include .gitignore
+semgrep-core/tests/
+
+# Ignore test items
+test/
+tests/
+
+# Ignore GitHub items
+.github/
+
+# Ignore VSCode
+.vscode/
