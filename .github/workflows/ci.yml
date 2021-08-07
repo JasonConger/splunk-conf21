@@ -28,11 +28,14 @@ jobs:
           VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FILTER_REGEX_EXCLUDE: .*\.github/.*
 
   # Semgrep detects and prevents bugs and anti-patterns in your codebase
   semgrep:
     name: Semgrep Scan
     runs-on: ubuntu-latest
+    # Skip any PR created by dependabot to avoid permission issues
+    if: (github.actor != 'dependabot[bot]')
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
