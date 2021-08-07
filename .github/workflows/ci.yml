@@ -13,12 +13,42 @@ on:
   
 jobs:
 
+  # Run linters to help validate source code
+  lint:
+    name: Lint Code Base
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Lint Code Base
+        uses: github/super-linter@v4
+        env:
+          VALIDATE_ALL_CODEBASE: false
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Semgrep detects and prevents bugs and anti-patterns in your codebase
+  semgrep:
+    name: Semgrep Scan
+    runs-on: ubuntu-latest
+    # Skip any PR created by dependabot to avoid permission issues
+    if: (github.actor != 'dependabot[bot]')
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Semgrep scan
+        uses: returntocorp/semgrep-action@v1
+        with:
+          config: p/r2c
+
   build:
     # Build, package, inspect, and upload artifacts
     name: Build
-    #needs:
-    #  - lint
-    #  - semgrep
+    needs:
+      - lint
+      - semgrep
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
