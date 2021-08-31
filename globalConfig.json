@@ -3,9 +3,8 @@
         "name": "TA-conf21",
         "displayName": "Splunk .conf21 Example App",
         "version": "1.0.0",
-        "apiVersion": "3.2.0",
         "restRoot": "TA_conf21",
-        "schemaVersion": "0.0.2"
+        "schemaVersion": "0.0.3"
     },
     "pages": {
         "configuration": {
@@ -20,6 +19,10 @@
                             {
                                 "field": "name",
                                 "label": "Account name"
+                            },
+                            {
+                                "field": "environment",
+                                "label": "Environment"
                             }
                         ],
                         "actions": [
@@ -50,7 +53,7 @@
                             ]
                         },
                         {
-                            "field": "password",
+                            "field": "token",
                             "label": "Access token",
                             "type": "text",
                             "encrypted": true,
@@ -66,12 +69,32 @@
                             ]
                         },
                         {
+                            "type": "singleSelect",
+                            "field": "environment",
+                            "label": "Environment",
+                            "required": true,
+                            "defaultValue": "public",
+                            "options": {
+                                "disableSearch": true,
+                                "autoCompleteFields": [
+                                    {
+                                        "value": "public",
+                                        "label": "Public"
+                                    },
+                                    {
+                                        "value": "gov",
+                                        "label": "Government"
+                                    }
+                                ]
+                            }
+                        },
+                        {
                             "field": "token_help_link",
                             "label": "",
                             "type": "helpLink",
                             "options": {
                                 "text": "Get a token",
-                                "link": "https://www.dropbox.com/1/oauth2/authorize?client_id=uffreahyhjd8j11&response_type=token&redirect_uri=https://www.dropbox.com/1/oauth2/display_token"
+                                "link": "https://www.google.com"
                             }
                         }
                     ]
@@ -242,6 +265,79 @@
                             "options": {
                                 "referenceName": "account"
                             }
+                        }
+                    ]
+                },
+                {
+                    "name": "buttercup",
+                    "title": "Buttercup",
+                    "entity": [
+                        {
+                            "field": "name",
+                            "label": "Name",
+                            "type": "text",
+                            "help": "Enter a unique name for the data input",
+                            "required": true,
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "pattern": "^[a-zA-Z]\\w*$",
+                                    "errorMsg": "Input Name must start with a letter and followed by alphabetic letters, digits or underscores."
+                                },
+                                {
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "maxLength": 100,
+                                    "errorMsg": "Length of input name should be between 1 and 100"
+                                }
+                            ]
+                        },
+                        {
+                            "field": "interval",
+                            "label": "Interval",
+                            "type": "text",
+                            "required": true,
+                            "help": "Time interval of input in seconds.",
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "pattern": "^\\-[1-9]\\d*$|^\\d*$",
+                                    "errorMsg": "Interval must be an integer."
+                                }
+                            ]
+                        },
+                        {
+                            "field": "index",
+                            "label": "Index",
+                            "type": "singleSelect",
+                            "defaultValue": "default",
+                            "options": {
+                                "endpointUrl": "data/indexes",
+                                "createSearchChoice": true,
+                                "denyList": "^_.*$"
+                            },
+                            "required": true,
+                            "validators": [
+                                {
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "maxLength": 80,
+                                    "errorMsg": "Length of index name should be between 1 and 80."
+                                }
+                            ]
+                        },
+                        {
+                            "type": "text",
+                            "field": "ipAddr",
+                            "label": "IP Address",
+                            "help": "Valid IPv4 address",
+                            "required": true,
+                            "validators": [
+                                {
+                                    "type": "ipv4",
+                                    "errorMsg": "Input must an IP v4 address."
+                                }
+                            ]
                         }
                     ]
                 }
