@@ -78,13 +78,6 @@ class BUTTERCUP_INPUT(smi.Script):
                 required_on_create=True
             )
         )
-
-        scheme.add_argument(
-            smi.Argument(
-                'radio',
-                required_on_create=True
-            )
-        )
         
         return scheme
 
