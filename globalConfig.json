@@ -4,6 +4,7 @@
         "displayName": "Splunk .conf21 Example App",
         "version": "0.0.0R07aa036",
         "restRoot": "TA_conf21",
+        "apiVersion": "3.2.0",
         "schemaVersion": "0.0.3"
     },
     "pages": {
