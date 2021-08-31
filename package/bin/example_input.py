@@ -66,17 +66,6 @@ def get_account_details(session_key, account_name, logger):
             traceback.format_exc()))
         sys.exit(1)
 
-def get_start_time(start_time_str):
-    if start_time_str:
-        try:
-            dt = datetime.datetime.strptime(start_time_str, '%Y-%m-%d')
-        except ValueError:
-            raise ValueError("Incorrect Start Time format. Should be YYYY-MM-DD")
-    else:
-        dt = datetime.datetime.now().replace(hour=0, minute=0, second=0, microsecond=0) - datetime.timedelta(days=90)
-
-    return datetime.datetime.strftime(dt, '%Y-%m-%dT%H:%M:%SZ')
-
 class EXAMPLE_INPUT(smi.Script):
 
     def __init__(self):
