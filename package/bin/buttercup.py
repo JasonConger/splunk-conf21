@@ -95,6 +95,7 @@ class BUTTERCUP_INPUT(smi.Script):
         input_items = {}
         input_name = list(inputs.inputs.keys())[0]
         input_items = inputs.inputs[input_name]
+        ip = input_items.get("ipAddr")
         
         # Generate logger with input name
         _, input_name = (input_name.split('//', 2))
