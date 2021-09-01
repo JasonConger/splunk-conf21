@@ -24,8 +24,8 @@ def get_log_level(session_key, logger):
         logging_details = settings_cfm.get_conf(CONF_NAME+"_settings").get("logging")
 
         log_level = (
-            logging_details.get('loglevel') 
-            if (logging_details.get('loglevel')) 
+            logging_details.get('loglevel')
+            if (logging_details.get('loglevel'))
             else 'INFO'
         )
         return log_level
@@ -84,11 +84,12 @@ class BUTTERCUP_INPUT(smi.Script):
 
         meta_configs = self._input_definition.metadata
         session_key = meta_configs['session_key']
-        
+
         input_items = {}
         input_name = list(inputs.inputs.keys())[0]
-        input_items = inputs.inputs[input_name]
-        
+        #input_items = inputs.inputs[input_name]
+        #ip = input_items.get("ipAddr")
+
         # Generate logger with input name
         _, input_name = (input_name.split('//', 2))
         logger = log.Logs().get_logger('{}_input'.format(APP_NAME))
