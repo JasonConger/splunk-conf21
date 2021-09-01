@@ -1,15 +1,7 @@
-import datetime
-import json
-import os
 import os.path as op
 import sys
-import time
-import traceback
 
-import import_declare_test
-import requests
 from solnlib import conf_manager, log
-from solnlib.modular_input import checkpointer
 from splunklib import modularinput as smi
 
 MINIMAL_INTERVAL = 30
@@ -27,10 +19,7 @@ def get_log_level(session_key, logger):
         settings_cfm = conf_manager.ConfManager(
             session_key,
             APP_NAME,
-            realm="__REST_CREDENTIAL__#{}#configs/conf-{}_settings".format(
-                APP_NAME,CONF_NAME
-                ),
-            )
+            realm="__REST_CREDENTIAL__#{}#configs/conf-{}_settings".format(APP_NAME,CONF_NAME))
 
         logging_details = settings_cfm.get_conf(CONF_NAME+"_settings").get("logging")
 
@@ -97,7 +86,6 @@ class BUTTERCUP_INPUT(smi.Script):
         input_items = {}
         input_name = list(inputs.inputs.keys())[0]
         input_items = inputs.inputs[input_name]
-        ip = input_items.get("ipAddr")
         
         # Generate logger with input name
         _, input_name = (input_name.split('//', 2))
