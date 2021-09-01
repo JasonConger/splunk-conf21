@@ -19,7 +19,7 @@ def get_log_level(session_key, logger):
         settings_cfm = conf_manager.ConfManager(
             session_key,
             APP_NAME,
-            realm="__REST_CREDENTIAL__#{}#configs/conf-{}_settings".format(APP_NAME,CONF_NAME))
+            realm="__REST_CREDENTIAL__#{}#configs/conf-{}_settings".format(APP_NAME, CONF_NAME))
 
         logging_details = settings_cfm.get_conf(CONF_NAME+"_settings").get("logging")
 
@@ -36,7 +36,9 @@ def get_log_level(session_key, logger):
         )
         return 'INFO'
 
+
 class BUTTERCUP_INPUT(smi.Script):
+
     def __init__(self):
         super(BUTTERCUP_INPUT, self).__init__()
 
@@ -55,21 +57,21 @@ class BUTTERCUP_INPUT(smi.Script):
                 required_on_create=True
             )
         )
-        
+
         scheme.add_argument(
             smi.Argument(
                 "interval",
                 required_on_create=True
             )
         )
-        
+
         scheme.add_argument(
             smi.Argument(
                 'ipAddr',
                 required_on_create=True
             )
         )
-        
+
         return scheme
 
     def validate_input(self, definition):
@@ -100,6 +102,7 @@ class BUTTERCUP_INPUT(smi.Script):
         # Input logic here
 
         logger.debug("Modular input completed")
+
 
 if __name__ == "__main__":
     exit_code = BUTTERCUP_INPUT().run(sys.argv)
