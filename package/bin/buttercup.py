@@ -16,6 +16,7 @@ MINIMAL_INTERVAL = 30
 APP_NAME = __file__.split(op.sep)[-3]
 CONF_NAME = "ta_conf21"
 
+
 def get_log_level(session_key, logger):
     """
     This function returns the log level for the addon from configuration file.
@@ -26,22 +27,27 @@ def get_log_level(session_key, logger):
         settings_cfm = conf_manager.ConfManager(
             session_key,
             APP_NAME,
-            realm="__REST_CREDENTIAL__#{}#configs/conf-{}_settings".format(APP_NAME,CONF_NAME))
+            realm="__REST_CREDENTIAL__#{}#configs/conf-{}_settings".format(
+                APP_NAME,CONF_NAME
+                ),
+            )
 
-        logging_details = settings_cfm.get_conf(
-            CONF_NAME+"_settings").get("logging")
+        logging_details = settings_cfm.get_conf(CONF_NAME+"_settings").get("logging")
 
-        log_level = logging_details.get('loglevel') if (
-            logging_details.get('loglevel')) else 'INFO'
+        log_level = (
+            logging_details.get('loglevel') 
+            if (logging_details.get('loglevel')) 
+            else 'INFO'
+        )
         return log_level
 
     except Exception:
         logger.error(
-            "Failed to fetch the log details from the configuration taking INFO as default level.")
+            "Failed to fetch the log details from the configuration taking INFO as default level."
+        )
         return 'INFO'
 
 class BUTTERCUP_INPUT(smi.Script):
-
     def __init__(self):
         super(BUTTERCUP_INPUT, self).__init__()
 
