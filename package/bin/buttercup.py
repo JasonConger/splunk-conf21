@@ -52,24 +52,24 @@ class BUTTERCUP_INPUT(smi.Script):
         super(BUTTERCUP_INPUT, self).__init__()
 
     def get_scheme(self):
-        scheme = smi.Scheme('Buttercup')
-        scheme.description = 'Go to the add-on\'s configuration UI and configure modular inputs under the Inputs menu.'
+        scheme = smi.Scheme("Buttercup")
+        scheme.description = "Go to the add-on's configuration UI and configure modular inputs under the Inputs menu."
         scheme.use_external_validation = True
         scheme.streaming_mode_xml = True
         scheme.use_single_instance = True
 
         scheme.add_argument(
             smi.Argument(
-                'name',
-                title='Name',
-                description='Name',
+                "name",
+                title="Name",
+                description="Name",
                 required_on_create=True
             )
         )
         
         scheme.add_argument(
             smi.Argument(
-                'interval',
+                "interval",
                 required_on_create=True
             )
         )
