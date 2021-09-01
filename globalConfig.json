@@ -2,7 +2,7 @@
     "meta": {
         "name": "TA-conf21",
         "displayName": "Splunk .conf21 Example App",
-        "version": "0.0.0R96cc72a",
+        "version": "0.0.0R3d5aa13",
         "restRoot": "TA_conf21",
         "apiVersion": "3.2.0",
         "schemaVersion": "0.0.3"
