@@ -111,6 +111,6 @@ class BUTTERCUP_INPUT(smi.Script):
 
         logger.debug("Modular input completed")
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     exit_code = BUTTERCUP_INPUT().run(sys.argv)
     sys.exit(exit_code)
