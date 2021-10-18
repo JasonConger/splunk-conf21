@@ -45,8 +45,8 @@ jobs:
         with:
           config: p/r2c
 
+  # Build, package, inspect, and upload artifacts
   build:
-    # Build, package, inspect, and upload artifacts
     name: Build
     needs:
       - lint
