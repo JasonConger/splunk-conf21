@@ -86,9 +86,9 @@ class BUTTERCUP_INPUT(smi.Script):
         session_key = meta_configs['session_key']
         input_name = list(inputs.inputs.keys())[0]
 
-        # input_items = {}
-        # input_items = inputs.inputs[input_name]
-        # ip = input_items.get("ipAddr")
+        input_items = {}
+        input_items = inputs.inputs[input_name]
+        ip = input_items.get("ipAddr")
 
         # Generate logger with input name
         _, input_name = (input_name.split('//', 2))
